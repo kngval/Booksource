@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Suggestions from "../components/Suggestions";
 import reading from "../assets/reading.svg";
+// import dotenv from "dotenv";
 export type Suggestion = {
   title: string;
   author: string;
@@ -21,11 +22,12 @@ const Home = () => {
   const [error, setError] = useState<string | null>(null);
   useEffect(() => {
     fetchSuggestions();
+    console.log(import.meta.env.VITE_API_URL);
   }, []);
 
   const fetchSuggestions = async () => {
     try {
-      const res = await fetch("http://localhost:3000/", {
+      const res = await fetch(import.meta.env.VITE_API_URL, {
         method: "GET",
       });
       const resSuggestions = await res.json();
@@ -43,7 +45,7 @@ const Home = () => {
         description,
         sender,
       };
-      const res = await fetch("http://localhost:3000/", {
+      const res = await fetch(import.meta.env.VITE_API_URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -89,9 +91,7 @@ const Home = () => {
           } bg-slate-900 text-sm md:text-md p-4 w-[340px] sm:w-[400px] md:w-[500px] lg:w-[900px] mb-5 grid gap-3`}
         >
           <div>
-            <label  className="block">
-              Title:
-            </label>
+            <label className="block">Title:</label>
             <input
               type="text"
               className="bg-transparent border-[1px] rounded-md p-2 w-full outline-none"
@@ -100,9 +100,7 @@ const Home = () => {
             />
           </div>
           <div>
-            <label  className="block">
-              Author:
-            </label>
+            <label className="block">Author:</label>
             <input
               type="text"
               className="bg-transparent border-[1px] rounded-md p-2 w-full outline-none"
@@ -111,9 +109,7 @@ const Home = () => {
             />
           </div>
           <div>
-            <label  className="block">
-              Genre:
-            </label>
+            <label className="block">Genre:</label>
             <input
               type="text"
               className="bg-transparent border-[1px] rounded-md p-2 w-full outline-none"
@@ -122,21 +118,16 @@ const Home = () => {
             />
           </div>
           <div>
-            <label  className="block">
-              Overview:
-            </label>
+            <label className="block">Overview:</label>
             <textarea
               rows={5}
               className="bg-transparent border-[1px] rounded-md p-2 w-full outline-none"
               placeholder="Don't reveal any spoilers/major plots in the book, e.g About an apartment sitter at an exclusive building in Manhattan who discovers that her predecessor in the job disappeared under suspicious circumstances."
               onChange={(e) => setDescription(e.target.value)}
-              
             />
           </div>
           <div>
-            <label  className="block">
-              Sender:
-            </label>
+            <label className="block">Sender:</label>
             <input
               type="text"
               className="bg-transparent border-[1px] rounded-md p-2 w-full outline-none"
@@ -177,7 +168,9 @@ const Home = () => {
           } text-center text-white grid place-items-center`}
         >
           <img src={reading} className="w-[300px] my-10" alt="" />
-          <h1 className="text-xs md:text-sm">No book suggestions at the moment...</h1>
+          <h1 className="text-xs md:text-sm">
+            No book suggestions at the moment...
+          </h1>
         </div>
       )}
       <div className="text-center text-slate-400 my-5 text-xs md:text-sm">
