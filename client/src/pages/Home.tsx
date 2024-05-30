@@ -22,7 +22,6 @@ const Home = () => {
   const [error, setError] = useState<string | null>(null);
   useEffect(() => {
     fetchSuggestions();
-    console.log(import.meta.env.VITE_API_URL);
   }, []);
 
   const fetchSuggestions = async () => {
